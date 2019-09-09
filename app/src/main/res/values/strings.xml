@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="title">Title</string>
+
+    <string name="description">description</string>
+
+    <string name="toggle_str">TOGGLE</string>
+
+    <string name="set_color_str">Set Color</string>
+
+    <string name="on_str">ON</string>
+
+    <string name="off_str">OFF</string>
+    <string name="color_wheel">color_wheel</string>
+
+</resources>
