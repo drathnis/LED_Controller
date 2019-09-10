@@ -45,25 +45,23 @@ class ViewAdapter(private val devices: ArrayList<DeviceInfo>, private val contex
 
 
     fun kill(){
-
         for (c in controller)
             c.close()
-
         println("DONE")
 
     }
 
     private fun ipCheck(ip:String):Boolean{
-
-
         if (Patterns.IP_ADDRESS.matcher(ip).matches())
             return true
-
         println("Invalid IP")
         return false
-
     }
 
+    fun changeColor(){
+        TODO("CHANGE THE COLOR OF THE BULBS")
+
+    }
 
     private fun on(position: Int) {
         controller[position].turnOn()
@@ -91,20 +89,6 @@ class ViewAdapter(private val devices: ArrayList<DeviceInfo>, private val contex
 
 
     fun update(){
-        notifyDataSetChanged()
-    }
-
-    fun getIP(id: Int):String{
-        return devices[id].mIP
-    }
-
-    fun removeItem(position: Int) {
-        devices.removeAt(position)
-        notifyDataSetChanged()
-    }
-
-    fun addItem(item:DeviceInfo) {
-        devices.add(item)
         notifyDataSetChanged()
     }
 

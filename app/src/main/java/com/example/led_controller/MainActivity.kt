@@ -24,11 +24,11 @@ open class MainActivity : AppCompatActivity() {
     private var getDevices = GetDevices()
 
 
-    var deviceList: ArrayList<DeviceInfo>? = null
+    private var deviceList: ArrayList<DeviceInfo>? = null
 
 
     private var handler: Handler?  =null
-    var adapter: ViewAdapter? = null
+    private var adapter: ViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,15 +42,7 @@ open class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        deviceList = ArrayList<DeviceInfo>()
-
-
-//        val dCount = 5
-//
-//        for (d in 0..dCount){
-//            deviceList?.add(DeviceInfo("test #$d ","ipTest"))
-//        }
-
+        deviceList = ArrayList()
         adapter = ViewAdapter(deviceList!!, this)
 
         recyclerView.adapter = adapter

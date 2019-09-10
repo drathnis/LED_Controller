@@ -29,17 +29,19 @@ class DeviceController(){
         mIP = ip
     }
 
-    fun start(name: String? = null, ip: String? = null){
+    fun start(name: String? = null, ip: String? = null): Boolean {
         mName = name
         mIP = ip
 
         if (mName!=null && mIP!=null){
             println("connect")
             connect()
+            return true
         }
         else{
             println("please provide name and ip")
         }
+        return false
     }
 
     private fun write(cmd: String) {
@@ -65,7 +67,7 @@ class DeviceController(){
         Thread(Runnable {
             try {
                 cmdRun = true
-                var mSocket = Socket(mIP, bulbPort)
+                val mSocket = Socket(mIP, bulbPort)
                 mSocket.keepAlive = true
                 mBos = BufferedOutputStream(mSocket.getOutputStream())
                 mReader = BufferedReader(InputStreamReader(mSocket.getInputStream()))
@@ -141,6 +143,11 @@ class DeviceController(){
                 2 -> method = "toggle"
 
                 3->{
+                    method = "set_rgb"
+
+
+
+
 
                 }
 

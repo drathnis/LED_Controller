@@ -5,10 +5,29 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/toggle_btn"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/set_color_str" />
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/toggle_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_color_str"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/colorWheel"
+            android:layout_width="344dp"
+            android:layout_height="406dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginBottom="193dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toggle_btn"
+            app:srcCompat="@drawable/color_wheel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
