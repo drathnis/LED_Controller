@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -7,10 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class DividerItemDecoration(divider: Drawable): RecyclerView.ItemDecoration() {
-    private val mDivider: Drawable
-    init{
-        mDivider = divider
-    }
+    private val mDivider: Drawable = divider
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
@@ -18,19 +15,19 @@ class DividerItemDecoration(divider: Drawable): RecyclerView.ItemDecoration() {
         {
             return
         }
-        outRect.top = mDivider.getIntrinsicHeight()
+        outRect.top = mDivider.intrinsicHeight
     }
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        val dividerLeft = parent.getPaddingLeft()
-        val dividerRight = parent.getWidth() - parent.getPaddingRight()
-        val childCount = parent.getChildCount()
+        val dividerLeft = parent.paddingLeft
+        val dividerRight = parent.width - parent.paddingRight
+        val childCount = parent.childCount
         for (i in 0 until childCount - 1)
         {
             val child = parent.getChildAt(i)
-            val params = child.getLayoutParams() as RecyclerView.LayoutParams
-            val dividerTop = child.getBottom() + params.bottomMargin
-            val dividerBottom = dividerTop + mDivider.getIntrinsicHeight()
+            val params = child.layoutParams as RecyclerView.LayoutParams
+            val dividerTop = child.bottom + params.bottomMargin
+            val dividerBottom = dividerTop + mDivider.intrinsicHeight
             mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
             mDivider.draw(canvas)
         }

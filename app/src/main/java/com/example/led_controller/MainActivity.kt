@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 import android.app.Activity
 import android.content.Intent
@@ -20,19 +20,15 @@ open class MainActivity : AppCompatActivity() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
-    private val mainHandler = MainHandler(WeakReference<MainActivity>(this))
-
     private val timer = Timer()
     private var getDevices = GetDevices()
 
 
-    var testDevices: ArrayList<DeviceInfo>? = null
+    var deviceList: ArrayList<DeviceInfo>? = null
 
-    var devices: ArrayList<DeviceList>? = null
 
-    var adapter: CustomAdapter? = null
-
-    var newAdapter: ViewAdapter? = null
+    private var handler: Handler?  =null
+    var adapter: ViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,31 +36,24 @@ open class MainActivity : AppCompatActivity() {
 
         linearLayoutManager = LinearLayoutManager(this)
 
-        val deviceNames: ArrayList<String> = ArrayList()
-        val deviceIPs: ArrayList<String> = ArrayList()
+        handler = MyHandler(WeakReference(MainActivity()))
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        devices = ArrayList<DeviceList>()
-
-        testDevices = ArrayList<DeviceInfo>()
+        deviceList = ArrayList<DeviceInfo>()
 
 
+//        val dCount = 5
+//
+//        for (d in 0..dCount){
+//            deviceList?.add(DeviceInfo("test #$d ","ipTest"))
+//        }
 
-        val dCount = 5
+        adapter = ViewAdapter(deviceList!!, this)
 
-        for (d in 0..dCount){
-            testDevices?.add(DeviceInfo("test #$d ","ipTest"))
-        }
-
-       //test adapter = CustomAdapter(devices!!, this)
-        newAdapter = ViewAdapter(testDevices!!, this)
-
-        //recyclerView.adapter = adapter
-
-        recyclerView.adapter = newAdapter
+        recyclerView.adapter = adapter
 
         val dividerDrawable = ContextCompat.getDrawable(this, android.R.drawable.divider_horizontal_bright)
 
@@ -72,6 +61,7 @@ open class MainActivity : AppCompatActivity() {
 
         getDevices.search()
         searchCheck()
+        getDevices.sendDiscoverMessage()
 
         refresh_btn.setOnClickListener {
 
@@ -83,7 +73,7 @@ open class MainActivity : AppCompatActivity() {
     override fun onResume() {
 
         super.onResume()
-        newAdapter?.update()
+        adapter?.update()
 
     }
 
@@ -96,7 +86,7 @@ open class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK){
             val id = data?.extras?.getInt("id")
             val color = data?.getIntExtra("color",0)
-            testDevices?.get(id!!)?.setColor(color!!)
+            deviceList?.get(id!!)?.setColor(color!!)
 
         }
 
@@ -104,21 +94,20 @@ open class MainActivity : AppCompatActivity() {
             println("RESULT_CANCELED")
         }
 
-        newAdapter?.update()
+        adapter?.update()
 
     }
 
     private fun updateList(){
 
-        newAdapter?.removeAll()
+        adapter?.removeAll()
 
         val list = getDevices.getDeviceList()
 
         for (d in list)
-            testDevices?.add(DeviceInfo(separateName(d),separateIP(d)))
-            //devices?.add(DeviceList(separateName(d),separateIP(d)))
+            deviceList?.add(DeviceInfo(separateName(d),separateIP(d)))
 
-        newAdapter?.update()
+        adapter?.update()
 
     }
 
@@ -131,12 +120,14 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun searchCheck(){
+
         val task = timerTask {
             if (getDevices.isSearching()) {
                 //println("running")
                 if (getDevices.newDataAvailable){
                     println("updating list")
-                    mHandler.obtainMessage(1).sendToTarget()
+                    handler!!.obtainMessage(1).sendToTarget()
+
                 }
             }
             else
@@ -145,23 +136,22 @@ open class MainActivity : AppCompatActivity() {
         timer.scheduleAtFixedRate(task,0,2000)
     }
 
-    var mHandler: Handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
+        adapter?.kill()
+        println("ALL DONE!")
 
-            if (msg.what==1){
-                updateList()
-            }
-           // StopWatch.time.setText(formatIntoHHMMSS(elapsedTime)) //this is the textview
-        }
     }
 
-    class MainHandler(private val outerClass: WeakReference<MainActivity>) : Handler(){
+
+    inner class MyHandler(private val mainActivity: WeakReference<MainActivity>) : Handler(){
 
         override fun handleMessage(msg: Message?) {
             if (msg != null) {
                 if (msg.what==1) {
-                    println("TESTING HANDLE")
-
+                    println("TESTING HANDLE INNER CLASS")
+                    updateList()
                 }
             }
         }

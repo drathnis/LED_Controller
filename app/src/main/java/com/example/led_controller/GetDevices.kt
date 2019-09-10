@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -7,7 +7,7 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 import java.util.*
 
-class GetDevices() {
+class GetDevices {
 
     private var listOfBulbs = mutableListOf<String>()
     private val bulbInfo = HashMap<String, String>()
@@ -27,7 +27,7 @@ class GetDevices() {
 
         if (!search){
             search = true
-            discover();
+            discover()
         }
     }
 
@@ -97,7 +97,7 @@ class GetDevices() {
                         buffer.append(bytes[i].toChar())
                     }
                     val info = buffer.toString().split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    println(buffer.toString());
+                    println(buffer.toString())
 
                     processData(info)
 
@@ -109,10 +109,6 @@ class GetDevices() {
         }
 
 
-    }
-
-    fun endSearch() {
-        search = false
     }
 
     companion object {

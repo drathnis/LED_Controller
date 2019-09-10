@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 import android.app.Activity
 import android.content.Context
@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ViewAdapter(private val devices: ArrayList<DeviceInfo>, private val context: Context
 ): RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
 
-    var deviceController: DeviceController? = null
-    var controller = mutableListOf<DeviceController>()
+    private var controller = mutableListOf<DeviceController>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.user_row, parent, false)
@@ -29,7 +28,6 @@ class ViewAdapter(private val devices: ArrayList<DeviceInfo>, private val contex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtName.text = devices[position].mName
         holder.txtIp.text = devices[position].mIP
-       // deviceController = DeviceController(devices[position].mName,devices[position].mIP)
         holder.onButton.setOnClickListener {on(position) }
         holder.offButton.setOnClickListener { off(position)}
         holder.itemView.setOnClickListener{
@@ -45,6 +43,15 @@ class ViewAdapter(private val devices: ArrayList<DeviceInfo>, private val contex
 
     }
 
+
+    fun kill(){
+
+        for (c in controller)
+            c.close()
+
+        println("DONE")
+
+    }
 
     private fun ipCheck(ip:String):Boolean{
 

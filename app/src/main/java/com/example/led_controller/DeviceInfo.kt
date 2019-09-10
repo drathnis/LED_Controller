@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 import android.graphics.Color
 import java.io.Serializable

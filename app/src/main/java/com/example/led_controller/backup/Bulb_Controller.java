@@ -1,6 +1,8 @@
-package com.example.LED_Controller;
+package com.example.led_controller.backup;
 
 import android.util.Log;
+
+import com.example.led_controller.MainActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -8,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 
-public class Bulb_Controller extends MainActivity{
+public class Bulb_Controller extends MainActivity {
 
     private String bulbIP;
     private final int bulbPort = 55443;

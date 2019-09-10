@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller
 
 class DeviceListTest {
 

@@ -1,4 +1,4 @@
-package com.example.LED_Controller
+package com.example.led_controller.backup
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.led_controller.OptionsMenu
+import com.example.led_controller.R
 
 
 class CustomAdapter(private val devices: ArrayList<DeviceList>, private val context: Context
@@ -66,7 +68,7 @@ class CustomAdapter(private val devices: ArrayList<DeviceList>, private val cont
         notifyDataSetChanged()
     }
 
-    fun addItem(item:DeviceList) {
+    fun addItem(item: DeviceList) {
         devices.add(item)
         notifyDataSetChanged()
     }

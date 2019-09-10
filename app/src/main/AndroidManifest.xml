@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.LED_Controller">
+    package="com.example.led_controller">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.example.LED_Controller.MainActivity">
+        <activity android:name="com.example.led_controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.LED_Controller.OptionsMenu" />
-        <activity android:name="com.example.LED_Controller.DeviceList" />
+        <activity android:name="com.example.led_controller.OptionsMenu" />
+        <activity android:name="com.example.led_controller.backup.DeviceList" />
 
     </application>
 
